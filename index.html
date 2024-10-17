@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Software</title>
+    <link rel="stylesheet" href="vr.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d1c2ea8b80.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-light bg-white">
+        <div class="container">
+            <div class="profile">
+                <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-responsive-website/vr-banner-bg.png" class="rounded-circle" width="40" height="40" alt="Profile Image">
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <input type="text" class="form-control mr-2" id="customerSearch" placeholder="Search Customer...">
+                    <i class="fas fa-bell mr-4 mt-2"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="searchResults" class="container mt-3"></div>
+
+    
+    
+    <header class="banner-section-bg-container" id="home">
+        <div class="text-center">
+            <h1 class="banner-heading mb-3">Billing Software</h1>
+            <div class="btn-group" role="group" aria-label="Navigation Buttons">
+                <a href="#Customer" class="custom-button btn btn-primary">Customer</a>
+                <a href="#Inventory" class="custom-button btn btn-primary">Inventory</a>
+                <a href="#Billing" class="custom-button btn btn-primary">Billing</a>
+            </div>
+        </div>
+        <div class="container bg-light text-center pt-3">
+            <h2>Dashboard</h2>
+            <p>Total Sales: <span id="total-sales">$0</span></p>
+            <p>Total Revenue: <span id="total-revenue">$0</span></p>
+        </div>
+    </header>
+    
+    <main>
+        <section id="Customer" class="bg-white">
+            <div class="container text-center">
+                <h2>Customer Management</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/addCustomer" method="POST" id="customer-form">
+                            <input type="text" name="name" placeholder="Enter Customer Name" required class="form-control mb-2">
+                            <input type="text" name="gender" placeholder="Enter Gender" required class="form-control mb-2">
+                            <input type="text" name="contact" placeholder="Enter Contact Number" required class="form-control mb-2">
+                            <input type="email" name="email" placeholder="Enter Email Address" required class="form-control mb-2">
+                            <button type="submit" class="custom-button btn btn-primary">Save Customer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Inventory" class="bg-light">
+            <div class="container text-center">
+                <h2>Inventory Management</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/addProduct" method="POST" id="product-form">
+                            <input type="text" name="name" placeholder="Enter Product Name" required class="form-control mb-2">
+                            <input type="number" name="price" placeholder="Enter Product Price" required class="form-control mb-2">
+                            <input type="number" name="quantity" placeholder="Enter Product Quantity" required class="form-control mb-2">
+                            <input type="text" name="brand" placeholder="Enter Product Brand" required class="form-control mb-2">
+                            <input type="text" name="supplier" placeholder="Enter Product Supplier" required class="form-control mb-2">
+                            <input type="text" name="category" placeholder="Enter Product Category" required class="form-control mb-2">
+                            <button type="submit" class="custom-button btn btn-primary">Add Product</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Billing" class="bg-white">
+            <div class="container text-center">
+                <h2>Billing System</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/addBilling" method="POST" id="billing-form">
+                            <select name="customerId" id="customer-dropdown" required class="form-control mb-2">
+                                <option value="">Select Customer</option>
+                            </select>
+                            <select name="productId" id="product-dropdown" required class="form-control mb-2">
+                                <option value="">Select Product</option>
+                            </select>
+                            <input type="number" name="quantity" placeholder="Enter Quantity" required class="form-control mb-2">
+                            <button type="submit" class="custom-button btn btn-primary">Add Billing</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ViewCustomer" class="bg-white view-section">
+            <div class="container text-center">
+                <h2>View Customers</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customer-list">
+                            </tbody>
+                        </table>
+                        <button class="home-button btn btn-primary"><a href="#home" class="text-white">View Customers</a></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ViewInventory" class="bg-light view-section">
+            <div class="container text-center">
+                <h2>View Products</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Brand</th>
+                                    <th>Supplier</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list">
+                            </tbody>
+                        </table>
+                        <button class="home-button btn btn-primary"><a href="#home" class="text-white">View Products</a></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ViewBilling" class="bg-white view-section">
+            <div class="container text-center">
+                <h2>View Billing</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billing-list">
+                            </tbody>
+                        </table>
+                        <button class="home-button btn btn-primary"><a href="#home" class="text-white">View Billing</a></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script> <!-- Add this to link main.js -->
+</body>
+</html>
